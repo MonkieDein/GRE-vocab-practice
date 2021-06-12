@@ -1,12 +1,14 @@
 rm(list=ls())
 setwd("~/GitHub/GRE-vocab-practice")
-vocab=read.csv("vocab1.csv")
-vocab$Definition=as.character(vocab$Definition)
-vocab$ï..Word=as.character(vocab$ï..Word)
+vocab=read.csv("vocab1.csv",header=TRUE, stringsAsFactors = FALSE)
+# colnames(vocab) = c("word","definition")
+
+vocab$definition=as.character(vocab$definition)
+vocab$word=as.character(vocab$word)
 
 l = dim(vocab)[1]
 # Change q.range for question that you wanna practice on
-q.range=1:10
+q.range=1:20
 sample=sample(q.range)
 
 # Create a record that store question that I made mistake on and retest me afterward
@@ -20,11 +22,11 @@ no.question= length(q.range)
   
 for (i in sample[1:no.question]){
   count = count + 1
-  n <- readline(prompt=paste0(vocab$Definition[i],"      "))
+  n <- readline(prompt=paste0(vocab$definition[i],"      "))
   
   
-  if (n != vocab$ï..Word[i]){
-    print(paste0("you are incorect !!! Your score now is    :", correct, "/" ,count,"    The correct answer is: ",vocab$ï..Word[i]))
+  if (n != vocab$word[i]){
+    print(paste0("you are incorect !!! Your score now is    :", correct, "/" ,count,"    The correct answer is: ",vocab$word[i]))
     mistake=c(mistake,i)
   } else {
     correct = correct+1
@@ -38,11 +40,11 @@ for (i in sample[1:no.question]){
 
 
 
+# vocab=vocab[-7,]
 
 
 
-
-
+write.csv(vocab, "vocab1.csv", row.names=FALSE)
 
 
 
